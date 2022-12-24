@@ -1,8 +1,21 @@
+@import url("components/navbar.css");
+@import url("components/footer.css");
+
 body {
-  padding: 50px;
+  margin: 0;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
+main {
+  position: relative;
+  display: flex;
+  flex-wrap: nowrap;
+  height: -webkit-fill-available;
+  min-height: calc(100vh - 66px);
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
 a {
-  color: #00B7FF;
+  color: #00b7ff;
 }

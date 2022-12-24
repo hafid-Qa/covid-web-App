@@ -1,0 +1,19 @@
+.navbar-covid-app {
+  box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
+  z-index: 20;
+}
+.navbar-covid-app .navbar-collapse {
+  flex-grow: 0;
+}
+.navbar-covid-app .navbar-brand {
+  display: flex;
+  align-items: end;
+}
+.navbar-covid-app.navbar-brand img {
+  height: 40px;
+  width: 40px;
+}
+.navbar-covid-app  {
+  font-family: "Handlee", cursive;
+  font-size: 1.4rem;
+}
