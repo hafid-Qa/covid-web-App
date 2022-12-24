@@ -30,3 +30,54 @@ const fetchCoordinates = (country) => {
       displayMap(coordinates);
     });
 };
+
+// update covid data as per the selected country
+// update covid data as per the selected country
+const fetchData = (country) => {
+  const url = `https://covid-19.dataflowkit.com/v1/${country}`;
+  const countryStatInfo = document.querySelector("#country-info");
+  const mapEl = document.querySelector("#map");
+  fetchCoordinates(country);
+  fetch(url)
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error("Something went wrong");
+      }
+    })
+    .then((data) => {
+      countryStatInfo.innerHTML = "";
+      let covidData = ` 
+          <div class="text-center">
+            <h3>${data.Country_text}</h3>
+          </div>
+          <div class="d-flex justify-content-between border align-items-center p-1 my-2 rounded">
+            <p>Total Cases</p> <span>${data["Total Cases_text"]}</span>
+          </div> 
+          <div class="d-flex justify-content-between align-items-center p-1 border my-2 rounded">
+            <p>Deaths</p> <span>${data["New Deaths_text"]}</span>
+          </div>
+          <div class="d-flex justify-content-between align-items-center p-1 border my-2 rounded">
+           <p>Recovered</p> <span>${data["Total Recovered_text"]}</span>
+          </div><div class="d-flex justify-content-between align-items-center p-1 border my-2 rounded">
+           <p>Active Cases</p><span>${data["New Cases_text"]}</span></div>
+          <div class="d-flex justify-content-between align-items-center p-1 border my-2 rounded">
+            <p>Last Updated</p><span>${data["Last Update"].split(" ")[0]}</span>
+          </div>
+      `;
+      countryStatInfo.insertAdjacentHTML("beforeend", covidData);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  // fetch(url)
+  //   .then((response) => response.json())
+  //   .then((data) => {});
+};
+// gte the select country
+const update = () => {
+  const countriesList = document.querySelector("#countries-list");
+  let value = countriesList.options[countriesList.selectedIndex].value;
+  fetchData(value);
+};
