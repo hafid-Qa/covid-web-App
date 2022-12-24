@@ -20,6 +20,13 @@ const displayMap = (coordinates) => {
   }
 };
 
-// displayMap([-74.01084309969329, 40.71074359563446]);
-
-console.log("hi");
+//  fetch coordinates of selected country and display the map
+const fetchCoordinates = (country) => {
+  const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${country}.json?access_token=${KEY}`;
+  fetch(url)
+    .then((response) => response.json())
+    .then((data) => {
+      const coordinates = data.features[0].geometry.coordinates;
+      displayMap(coordinates);
+    });
+};
