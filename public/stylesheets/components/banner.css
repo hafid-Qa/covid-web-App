@@ -75,7 +75,9 @@ home-container {
 }
 
 @media (max-width: 1000px) {
-  flex-direction: column;
+  .section-about {
+    flex-direction: column;
+  }
 
   .section-about-left,
   .section-about-right {
@@ -83,13 +85,12 @@ home-container {
     min-height: fit-content;
     padding: 4rem;
   }
-
   .section-about-right {
     display: none;
   }
-  @media (max-width: 500px) {
-    .section-about-left {
-      padding: 4rem 1.2rem;
-    }
+}
+@media (max-width: 500px) {
+  .section-about-left {
+    padding: 4rem 1.2rem;
   }
 }
