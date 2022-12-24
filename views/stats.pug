@@ -1,0 +1,37 @@
+extends layout
+
+block content
+  .container
+    .row.m-5.justify-content-between
+      div#data.col-sm-12.col-md-12.col-lg-4.shadow-sm.p-3.bg-body.rounded
+        div.m-3
+            select#countries-list.form-select( aria-label="Default select example" onchange='update()')
+              option(selected,value="world") World
+              each name in countriesList
+                option(value=`${name}`) #{name}
+        .d-flex.flex-column.justify-content-between#country-info      
+          div.text-center
+            h3 #{worldCount.Country_text}
+          div.d-flex.justify-content-between.border.align-items-center.p-1.my-2.rounded
+            p Total Cases
+            span #{worldCount["Total Cases_text"]}
+          div.d-flex.justify-content-between.align-items-center.p-1.border.my-2.rounded
+            p Deaths
+            span #{worldCount["New Deaths_text"]}
+          div.d-flex.justify-content-between.align-items-center.p-1.border.my-2.rounded
+            p Recovered
+            span #{worldCount["Total Recovered_text"]}
+          div.d-flex.justify-content-between.align-items-center.p-1.border.my-2.rounded
+            p Active Cases
+            span #{worldCount["New Cases_text"]}
+          div.d-flex.justify-content-between.align-items-center.p-1.border.my-2.rounded
+            p Last Updated
+            span #{`${worldCount["Last Update"].split(" ")[0]}`}
+      #map.col-sm-12.col-md-12.col-lg-7.shadow-sm.p-3.mb-5.bg-body.rounded
+     
+        
+    
+
+    
+
+
