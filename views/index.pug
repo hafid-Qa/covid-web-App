@@ -1,5 +1,22 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  .home-container
+    .top-section
+      h1
+        | Search 
+        span.text-danger Covid Data
+        |  with
+      h1 a few clicks.
+      a(href=("/statistics")).btn.btn-lg.btn-primary.mt-4 Search now
+    .section-about.d-flex
+      .section-about-left
+          h4.fs-6.text-secondary.text-uppercase About Us
+          h5.fs-1.mb-4
+            | We help you find Covid data in 
+            span.text-primary seconds
+            | .
+          p
+            | Access live statistics data with map for the selected country.
+      .section-about-right
+        img(src="images/demo.png", alt="").section-about-img
