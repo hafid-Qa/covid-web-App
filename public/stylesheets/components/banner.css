@@ -39,10 +39,6 @@ home-container {
 
 .section-about {
   min-height: 40vh;
-  /* justify-content: start;
-  align-items: center;
-  padding: 4rem;
-  padding-right: 0; */
 }
 .section-about-left,
 .section-about-right {
