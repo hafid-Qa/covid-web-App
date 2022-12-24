@@ -2,8 +2,8 @@ extends layout
 
 block content
   .container
-    .row.m-5.justify-content-between
-      div#data.col-sm-12.col-md-12.col-lg-4.shadow-sm.p-3.bg-body.rounded
+    .row.justify-content-between.mt-5
+      div#data.col-sm-12.col-md-12.col-lg-4.shadow-sm.p-3.bg-body.rounded.mb-2
         div.m-3
             select#countries-list.form-select( aria-label="Default select example" onchange='update()')
               option(selected,value="world") World
