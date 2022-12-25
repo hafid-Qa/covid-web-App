@@ -91,8 +91,30 @@ const submitMessage = (e) => {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(formData),
   };
+  sendEmail(options);
+};
 
-  console.log(options);
+const sendEmail = (options) => {
+  fetch("/api/send", options)
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error("Something went wrong");
+      }
+    })
+    .then((data) => {
+      form.reset();
+      messageDiv.classList.add("alert", "alert-success");
+      messageDiv.insertAdjacentHTML("afterbegin", `<p>${data.message}</p>`);
+      setTimeout(() => {
+        messageDiv.classList.remove("alert", "alert-success");
+        messageDiv.innerHTML = "";
+      }, 2000);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 };
 
 form.addEventListener("submit", submitMessage);
