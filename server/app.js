@@ -3,7 +3,7 @@ import path from "path";
 import cookieParser from "cookie-parser";
 import logger from "morgan";
 import indexRouter from "./routes/indexRoutes.js";
-// import contactFormRouter from "./routes/submitForm.js";
+import contactFormRouter from "./routes/contactForm.js";
 const __dirname = path.resolve();
 const app = express();
 
@@ -19,6 +19,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
+app.use("/api", contactFormRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

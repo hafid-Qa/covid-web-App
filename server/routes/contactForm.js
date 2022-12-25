@@ -1,9 +1,9 @@
-var express = require('express');
-var router = express.Router();
+import nodemailer from "nodemailer";
+import express from "express";
+const router = express.Router();
+import * as dotenv from "dotenv";
+dotenv.config();
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
+router.post("/send", (req, res) => {});
 
-module.exports = router;
+export default router;
