@@ -13,8 +13,7 @@ const displayMap = (coordinates) => {
       container: "map",
       style: "mapbox://styles/mapbox/streets-v12",
       // center: coordinates,
-       zoom: 0,
-     
+      zoom: 0,
     };
   } else {
     mapOptions = {
@@ -43,6 +42,22 @@ const fetchCoordinates = (country) => {
 };
 
 // update covid data as per the selected country and request for the coordinates from mapbox api
+const CalculateRecoveryPercentage = (recoveredCases, totalCases) => {
+  let recoveredCasesToNumber = parseInt(recoveredCases.replace(/,/g, ""));
+  let totalCasesToNumber = parseInt(totalCases.replace(/,/g, ""));
+
+  const recoveryPercentage = (
+    (recoveredCasesToNumber / totalCasesToNumber) *
+    100
+  ).toFixed(2);
+  console.log(recoveredCasesToNumber, totalCasesToNumber);
+  console.log(recoveryPercentage);
+  if (recoveryPercentage === "NaN") {
+    return { message: "Sorry Data is missing 😔", class: "warning" };
+  } else {
+    return { message: ` ${recoveryPercentage}%`, class: "success" };
+  }
+};
 const fetchData = (country) => {
   const url = `https://covid-19.dataflowkit.com/v1/${country}`;
   const countryStatInfo = document.querySelector("#country-info");
@@ -74,6 +89,20 @@ const fetchData = (country) => {
            <p>Active Cases</p><span>${data["New Cases_text"]}</span></div>
           <div class="d-flex justify-content-between align-items-center p-1 border my-2 rounded">
             <p>Last Updated</p><span>${data["Last Update"].split(" ")[0]}</span>
+          </div>
+          <div class="text-center p-2 bg-${
+            CalculateRecoveryPercentage(
+              data["Total Recovered_text"],
+              data["Total Cases_text"]
+            ).class
+          }  bg-gradient my-2 rounded badge bg-primary text-wrap">
+            <h6> Recovery Percentage </h6>
+            <p class="mt-1 fs-3">${
+              CalculateRecoveryPercentage(
+                data["Total Recovered_text"],
+                data["Total Cases_text"]
+              ).message
+            } </p>
           </div>
       `;
       countryStatInfo.insertAdjacentHTML("beforeend", covidData);
