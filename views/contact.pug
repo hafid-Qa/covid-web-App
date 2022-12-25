@@ -1,0 +1,17 @@
+extends layout
+
+block content
+  .container.vh-100
+    form#form.shadow.p-3.m-5.bg-body.rounded.border.w-75.mx-auto(method="post")
+      h3.text-center.mt-2.mb-4 Contact Us
+      div#alert(role="alert")
+      .mb-5
+        input#name(name='name' type='text' placeholder='Full Name' required).form-control
+      .mb-5
+        input#email(name='email' type='email' placeholder='example@gmail.com' required).form-control
+      .mb-5
+        input#subject(name='subject' type='text' placeholder='Enter your subject' required).form-control
+      .mb-5
+        textarea#message(name='message' rows='4' required).form-control
+      div
+        button.btn.btn-success(type=submit) Submit
