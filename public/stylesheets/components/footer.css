@@ -1,9 +1,9 @@
-
 .footer {
   background-color: rgb(32, 167, 172);
   padding: 16px 128px;
   flex-shrink: 0;
   text-align: center;
+  bottom: 0px;
 }
 
 .copyright {

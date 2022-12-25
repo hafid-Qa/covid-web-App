@@ -31,8 +31,7 @@ const fetchCoordinates = (country) => {
     });
 };
 
-// update covid data as per the selected country
-// update covid data as per the selected country
+// update covid data as per the selected country and request for the coordinates from mapbox api
 const fetchData = (country) => {
   const url = `https://covid-19.dataflowkit.com/v1/${country}`;
   const countryStatInfo = document.querySelector("#country-info");
@@ -71,13 +70,29 @@ const fetchData = (country) => {
     .catch((error) => {
       console.log(error);
     });
-  // fetch(url)
-  //   .then((response) => response.json())
-  //   .then((data) => {});
 };
-// gte the select country
+
+// get the select country and fetch the statistics
 const update = () => {
   const countriesList = document.querySelector("#countries-list");
   let value = countriesList.options[countriesList.selectedIndex].value;
   fetchData(value);
 };
+
+///////////////////////////////////////////////////////////////
+// submitting the contact us form
+const form = document.querySelector("form");
+const messageDiv = document.getElementById("feedback-message");
+const submitMessage = (e) => {
+  e.preventDefault();
+  const formData = Object.fromEntries(new FormData(form));
+  const options = {
+    method: form.method,
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(formData),
+  };
+
+  console.log(options);
+};
+
+form.addEventListener("submit", submitMessage);
