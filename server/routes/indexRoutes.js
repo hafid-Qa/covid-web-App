@@ -1,22 +1,22 @@
-const express = require("express");
+import express from "express";
 const router = express.Router();
-const axios = require("axios");
+import axios from "axios";
 
-const countriesList = require("../data/countriesName");
-const countriesListToArr = countriesList.countriesNames.split(", ").sort();
+import COUNTRIES from "../data/countriesNames.js";
+const countriesList = COUNTRIES.split(", ").sort();
 /* GET home page. */
 router.get("/home", function (req, res, next) {
-  res.render("index", { title: "Express" });
+  res.render("index");
 });
 
 router.get("/statistics", async (req, res) => {
-  const worldCount = await axios.get(
+  const worldStats = await axios.get(
     "https://covid-19.dataflowkit.com/v1/world"
   );
   res.render("stats", {
-    worldCount: worldCount.data,
-    countriesList: countriesListToArr,
+    worldStats: worldStats.data,
+    countriesList: countriesList,
   });
 });
 
-module.exports = router;
+export default router;

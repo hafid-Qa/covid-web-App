@@ -2,9 +2,10 @@
   "name": "covidapiapp",
   "version": "0.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
-    "start": "node ./server/bin/www",
-    "dev": "nodemon ./server/bin/www"
+    "start": "node ./server/bin/www.js",
+    "dev": "nodemon ./server/bin/www.js"
   },
   "dependencies": {
     "axios": "^1.2.1",

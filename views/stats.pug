@@ -11,22 +11,22 @@ block content
                 option(value=`${name}`) #{name}
         .d-flex.flex-column.justify-content-between#country-info      
           div.text-center
-            h3 #{worldCount.Country_text}
+            h3 #{worldStats.Country_text}
           div.d-flex.justify-content-between.border.align-items-center.p-1.my-2.rounded
             p Total Cases
-            span #{worldCount["Total Cases_text"]}
+            span #{worldStats["Total Cases_text"]}
           div.d-flex.justify-content-between.align-items-center.p-1.border.my-2.rounded
             p Deaths
-            span #{worldCount["New Deaths_text"]}
+            span #{worldStats["New Deaths_text"]}
           div.d-flex.justify-content-between.align-items-center.p-1.border.my-2.rounded
             p Recovered
-            span #{worldCount["Total Recovered_text"]}
+            span #{worldStats["Total Recovered_text"]}
           div.d-flex.justify-content-between.align-items-center.p-1.border.my-2.rounded
             p Active Cases
-            span #{worldCount["New Cases_text"]}
+            span #{worldStats["New Cases_text"]}
           div.d-flex.justify-content-between.align-items-center.p-1.border.my-2.rounded
             p Last Updated
-            span #{`${worldCount["Last Update"].split(" ")[0]}`}
+            span #{`${worldStats["Last Update"].split(" ")[0]}`}
       #map.col-sm-12.col-md-12.col-lg-7.shadow-sm.p-3.bg-body.rounded
      
         
