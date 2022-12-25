@@ -7,13 +7,24 @@ window.addEventListener("load", (event) => {
 });
 const displayMap = (coordinates) => {
   mapboxgl.accessToken = KEY;
-
-  const map = new mapboxgl.Map({
-    container: "map",
-    style: "mapbox://styles/mapbox/streets-v12",
-    center: coordinates,
-    zoom: 2,
-  });
+  let mapOptions = {};
+  if (coordinates[0] === -74.01084309969329) {
+    mapOptions = {
+      container: "map",
+      style: "mapbox://styles/mapbox/streets-v12",
+      // center: coordinates,
+       zoom: 0,
+     
+    };
+  } else {
+    mapOptions = {
+      container: "map",
+      style: "mapbox://styles/mapbox/streets-v12",
+      center: coordinates,
+      zoom: 3,
+    };
+  }
+  const map = new mapboxgl.Map(mapOptions);
   map.addControl(new mapboxgl.NavigationControl());
   if (coordinates[0] != -74.01084309969329) {
     new mapboxgl.Marker().setLngLat(coordinates).addTo(map);
