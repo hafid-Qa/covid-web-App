@@ -11,13 +11,7 @@ body {
 }
 
 main {
-  position: relative;
-  display: flex;
-  flex-wrap: nowrap;
-  height: -webkit-fill-available;
-  min-height: calc(100vh - 66px);
-  overflow-x: auto;
-  overflow-y: hidden;
+  min-height: calc(100vh - 50px);
 }
 
 a {
