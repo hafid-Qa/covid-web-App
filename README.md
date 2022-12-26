@@ -33,7 +33,7 @@ npm/yarn run dev
 ```
 docker build -t <name of your app> .
 then
-docker run -p <your prefered port>:3000 <the name of the app>
+docker run -p <your preferred port>:3000 <the name of the app>
 ```
 Docker Compose 
 ```
