@@ -1,12 +1,20 @@
-// Map display
+// *** Map display ***//
 const KEY =
   "pk.eyJ1IjoiaGFmaWQxMDAiLCJhIjoiY2xidWk3MWRkMXA2ZzN3cGs0cDRlbnpzMSJ9.WFkGyQqKh7BglSV3jrSuzw";
 const statsPage = document.querySelector("#stats-page");
+const countriesList = document.querySelector("#countries-list");
+const countryStatInfo = document.querySelector("#country-info");
+const mapEl = document.querySelector("#map");
+
+// ** Display map on load **  //
 if (statsPage) {
   document.addEventListener("DOMContentLoaded", (event) => {
     displayMap([-74.01084309969329, 40.71074359563446]);
   });
 }
+
+// ** Display map **  //
+
 const displayMap = (coordinates) => {
   mapboxgl.accessToken = KEY;
   let mapOptions = {};
@@ -14,7 +22,6 @@ const displayMap = (coordinates) => {
     mapOptions = {
       container: "map",
       style: "mapbox://styles/mapbox/streets-v12",
-      // center: coordinates,
       zoom: 0,
     };
   } else {
@@ -32,7 +39,7 @@ const displayMap = (coordinates) => {
   }
 };
 
-//  fetch coordinates of selected country and display the map
+//  ** fetch coordinates of selected country and display the map ** //
 const fetchCoordinates = (country) => {
   const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${country}.json?access_token=${KEY}`;
   fetch(url)
@@ -43,39 +50,31 @@ const fetchCoordinates = (country) => {
     });
 };
 
-// update covid data as per the selected country and request for the coordinates from mapbox api
+//  calculate the recovery rate
 const CalculateRecoveryPercentage = (recoveredCases, totalCases) => {
   let recoveredCasesToNumber = parseInt(recoveredCases.replace(/,/g, ""));
   let totalCasesToNumber = parseInt(totalCases.replace(/,/g, ""));
-
   const recoveryPercentage = (
     (recoveredCasesToNumber / totalCasesToNumber) *
     100
   ).toFixed(2);
-  console.log(recoveredCasesToNumber, totalCasesToNumber);
-  console.log(recoveryPercentage);
   if (recoveryPercentage === "NaN") {
     return { message: "Sorry Data is missing 😔", class: "warning" };
   } else {
     return { message: ` ${recoveryPercentage}%`, class: "success" };
   }
 };
-const fetchData = (country) => {
-  const url = `https://covid-19.dataflowkit.com/v1/${country}`;
-  const countryStatInfo = document.querySelector("#country-info");
-  const mapEl = document.querySelector("#map");
-  fetchCoordinates(country);
-  fetch(url)
-    .then((response) => {
-      if (response.ok) {
-        return response.json();
-      } else {
-        throw new Error("Something went wrong");
-      }
-    })
-    .then((data) => {
-      countryStatInfo.innerHTML = "";
-      let covidData = ` 
+
+// update covid data as per the selected country and request for the coordinates from mapbox api
+
+// ** display the country stats ** //
+const displayStatistics = (data) => {
+  const recoveryRate = CalculateRecoveryPercentage(
+    data["Total Recovered_text"],
+    data["Total Cases_text"]
+  );
+  countryStatInfo.innerHTML = "";
+  let covidData = ` 
           <div class="text-center">
             <h3>${data.Country_text}</h3>
           </div>
@@ -93,35 +92,42 @@ const fetchData = (country) => {
             <p>Last Updated</p><span>${data["Last Update"].split(" ")[0]}</span>
           </div>
           <div class="text-center p-2 bg-${
-            CalculateRecoveryPercentage(
-              data["Total Recovered_text"],
-              data["Total Cases_text"]
-            ).class
-          }  bg-gradient my-2 rounded badge bg-primary text-wrap">
-            <h6> Recovery Percentage </h6>
-            <p class="mt-1 fs-3">${
-              CalculateRecoveryPercentage(
-                data["Total Recovered_text"],
-                data["Total Cases_text"]
-              ).message
-            } </p>
+            recoveryRate.class
+          } bg-gradient my-2 rounded badge bg-primary text-wrap">
+            <h6> Recovery Rate </h6>
+            <p class="mt-1 fs-3">${recoveryRate.message} </p>
           </div>
       `;
-      countryStatInfo.insertAdjacentHTML("beforeend", covidData);
+  countryStatInfo.insertAdjacentHTML("beforeend", covidData);
+};
+
+const fetchData = (country) => {
+  const url = `https://covid-19.dataflowkit.com/v1/${country}`;
+  fetchCoordinates(country);
+  fetch(url)
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error("Something went wrong");
+      }
     })
-    .catch((error) => {
-      console.log(error);
+    .then((data) => {
+      displayStatistics(data);
+    })
+    .catch(() => {
+      countryStatInfo.innerHTML = "";
+      alert("Sorry something went wrong,Try again");
     });
 };
 
 // get the select country and fetch the statistics
 const update = () => {
-  const countriesList = document.querySelector("#countries-list");
   let value = countriesList.options[countriesList.selectedIndex].value;
   fetchData(value);
 };
 
-///////////////////////////////////////////////////////////////
+///** form submission logic **///
 // submitting the contact us form
 const form = document.querySelector("form");
 const messageDiv = document.getElementById("feedback-message");
@@ -135,6 +141,16 @@ const submitMessage = (e) => {
   };
   sendEmail(options);
 };
+// display send feedback email notification
+
+const displayMessage = (message) => {
+  messageDiv.classList.add("alert", "alert-success");
+  messageDiv.insertAdjacentHTML("afterbegin", `<p>${message}</p>`);
+  setTimeout(() => {
+    messageDiv.classList.remove("alert", "alert-success");
+    messageDiv.innerHTML = "";
+  }, 2000);
+};
 
 const sendEmail = (options) => {
   fetch("/api/send", options)
@@ -147,15 +163,10 @@ const sendEmail = (options) => {
     })
     .then((data) => {
       form.reset();
-      messageDiv.classList.add("alert", "alert-success");
-      messageDiv.insertAdjacentHTML("afterbegin", `<p>${data.message}</p>`);
-      setTimeout(() => {
-        messageDiv.classList.remove("alert", "alert-success");
-        messageDiv.innerHTML = "";
-      }, 2000);
+      displayMessage(data.message);
     })
     .catch((error) => {
-      console.log(error);
+      displayMessage("Error: " + error.message);
     });
 };
 if (form) {
