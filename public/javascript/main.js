@@ -9,7 +9,7 @@ const mapEl = document.querySelector("#map");
 // ** Display map on load **  //
 if (statsPage) {
   document.addEventListener("DOMContentLoaded", (event) => {
-    displayMap([-74.01084309969329, 40.71074359563446]);
+    displayMap();
   });
 }
 
@@ -18,24 +18,28 @@ if (statsPage) {
 const displayMap = (coordinates) => {
   mapboxgl.accessToken = KEY;
   let mapOptions = {};
-  if (coordinates[0] === -74.01084309969329) {
+  if (coordinates === undefined || coordinates[0] === -74.01084309969329) {
     mapOptions = {
       container: "map",
       style: "mapbox://styles/mapbox/streets-v12",
-      zoom: 0,
+      center: [31.235726, 30.044388],
+      zoom: 1,
     };
   } else {
     mapOptions = {
       container: "map",
       style: "mapbox://styles/mapbox/streets-v12",
       center: coordinates,
-      zoom: 3,
+      zoom: 4,
     };
   }
   const map = new mapboxgl.Map(mapOptions);
   map.addControl(new mapboxgl.NavigationControl());
-  if (coordinates[0] != -74.01084309969329) {
-    new mapboxgl.Marker().setLngLat(coordinates).addTo(map);
+  console.log(coordinates);
+  if (coordinates != undefined) {
+    if (coordinates[0] != -74.01084309969329) {
+      new mapboxgl.Marker().setLngLat(coordinates).addTo(map);
+    }
   }
 };
 
