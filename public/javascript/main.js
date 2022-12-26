@@ -1,10 +1,12 @@
 // Map display
 const KEY =
   "pk.eyJ1IjoiaGFmaWQxMDAiLCJhIjoiY2xidWk3MWRkMXA2ZzN3cGs0cDRlbnpzMSJ9.WFkGyQqKh7BglSV3jrSuzw";
-
-window.addEventListener("load", (event) => {
-  displayMap([-74.01084309969329, 40.71074359563446]);
-});
+const statsPage = document.querySelector("#stats-page");
+if (statsPage) {
+  document.addEventListener("DOMContentLoaded", (event) => {
+    displayMap([-74.01084309969329, 40.71074359563446]);
+  });
+}
 const displayMap = (coordinates) => {
   mapboxgl.accessToken = KEY;
   let mapOptions = {};
@@ -156,5 +158,6 @@ const sendEmail = (options) => {
       console.log(error);
     });
 };
-
-form.addEventListener("submit", submitMessage);
+if (form) {
+  form.addEventListener("submit", submitMessage);
+}
