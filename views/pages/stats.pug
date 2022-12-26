@@ -3,7 +3,7 @@ extends ../layout
 block content
   .container#stats-page
     .row.justify-content-between.mt-5
-      div#data.col-sm-12.col-md-12.col-lg-4.shadow-lg.p-3.bg-body.rounded.mb-2
+      div#data.col-sm-12.col-lg-4.shadow-lg.p-3.bg-body.rounded.mb-2
         div.m-3
             select#countries-list.form-select( aria-label="Default select example" onchange='update()')
               option(selected,value="world") World
@@ -27,7 +27,7 @@ block content
           div.d-flex.justify-content-between.align-items-center.p-1.border.my-2.rounded
             p Last Updated
             span #{`${worldStats["Last Update"].split(" ")[0]}`}
-      .col-sm-12.col-md-12.col-lg-8
+      .col-sm-12.col-lg-8
         #map.shadow-lg.bg-body.rounded.mb-2.
      
         
