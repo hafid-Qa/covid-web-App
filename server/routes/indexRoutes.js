@@ -15,7 +15,7 @@ router.get("/statistics", async (req, res) => {
   const worldStats = await axios.get(
     "https://covid-19.dataflowkit.com/v1/world"
   );
-  res.render("stats", {
+  res.render("statistics", {
     worldStats: worldStats.data,
     countriesList: countriesList,
   });

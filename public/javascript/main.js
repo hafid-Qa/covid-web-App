@@ -35,7 +35,6 @@ const displayMap = (coordinates) => {
   }
   const map = new mapboxgl.Map(mapOptions);
   map.addControl(new mapboxgl.NavigationControl());
-  console.log(coordinates);
   if (coordinates != undefined) {
     if (coordinates[0] != -74.01084309969329) {
       new mapboxgl.Marker().setLngLat(coordinates).addTo(map);
