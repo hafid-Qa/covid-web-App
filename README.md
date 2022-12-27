@@ -1,6 +1,20 @@
 # CovidApp-ExpressJS
+A web app to monitor the latest statistics about cases of covid-19 in the world.
+Back-end with ExpressJs and PUG as template engine.Front-end with pure JS.
 
-web app is to monitor the latest statistics about cases of covid-19 in the world.
+The covid data is from API(https://covid-19.dataflowkit.com).
+
+There are three pages:
+
+/home: A static page that provides general information about the service.
+
+/statistics: Dynamically generated and contain the following displays:
+  - Dropdown from which the user can pick a country or the world
+  - A map that shows which country is currently selected.
+  - A table displaying the different statistics for the world or the selected country.
+  
+/contact: To send a message in case a user wants to ask for an inquiry.
+
 
 ## Getting Started
 ### Setup
