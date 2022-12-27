@@ -60,7 +60,7 @@ Using Docker Compose
 ```
 docker-compose up --build
 
-#open localhost:3000/home
+#Open localhost:3000/home
 ```
 
 
