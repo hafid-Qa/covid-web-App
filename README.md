@@ -39,11 +39,13 @@ yarn install
 or
 npm install
 
-#Run a server Localhost:3000/home
+#Run a server 
 npm or yarn start
-or
-npm or yarn run dev # this is with nodemon
+
+#Run development server:
+npm or yarn run dev 
 ```
+Open http://localhost:3000/home with your browser.
 
 ### Building With Docker
 
