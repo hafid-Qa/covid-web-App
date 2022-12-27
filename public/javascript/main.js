@@ -1,13 +1,10 @@
 // *** Map display ***//
 const KEY =
   "pk.eyJ1IjoiaGFmaWQxMDAiLCJhIjoiY2xidWk3MWRkMXA2ZzN3cGs0cDRlbnpzMSJ9.WFkGyQqKh7BglSV3jrSuzw";
-const statsPage = document.querySelector("#stats-page");
-const countriesList = document.querySelector("#countries-list");
-const countryStatInfo = document.querySelector("#country-info");
-const mapEl = document.querySelector("#map");
+const statisticsPage = document.querySelector("#stats-page");
 
 // ** Display map on load **  //
-if (statsPage) {
+if (statisticsPage) {
   document.addEventListener("DOMContentLoaded", (event) => {
     displayMap();
   });
@@ -46,12 +43,25 @@ const displayMap = (coordinates) => {
 const fetchCoordinates = (country) => {
   const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${country}.json?access_token=${KEY}`;
   fetch(url)
-    .then((response) => response.json())
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error("Something went wrong");
+      }
+    })
     .then((data) => {
       const coordinates = data.features[0].geometry.coordinates;
       displayMap(coordinates);
+    })
+    .catch((error) => {
+      console.log(error);
     });
 };
+
+// ** update covid data as per the selected country and request for the coordinates from mapbox api ** //
+const countriesList = document.querySelector("#countries-list");
+const countryStatInfoTable = document.querySelector("#country-info");
 
 //  calculate the recovery rate
 const CalculateRecoveryPercentage = (recoveredCases, totalCases) => {
@@ -67,16 +77,13 @@ const CalculateRecoveryPercentage = (recoveredCases, totalCases) => {
     return { message: ` ${recoveryPercentage}%`, class: "success" };
   }
 };
-
-// update covid data as per the selected country and request for the coordinates from mapbox api
-
 // ** display the country stats ** //
 const displayStatistics = (data) => {
   const recoveryRate = CalculateRecoveryPercentage(
     data["Total Recovered_text"],
     data["Total Cases_text"]
   );
-  countryStatInfo.innerHTML = "";
+  countryStatInfoTable.innerHTML = "";
   let covidData = ` 
           <div class="text-center">
             <h3>${data.Country_text}</h3>
@@ -101,7 +108,7 @@ const displayStatistics = (data) => {
             <p class="mt-1 fs-3">${recoveryRate.message} </p>
           </div>
       `;
-  countryStatInfo.insertAdjacentHTML("beforeend", covidData);
+  countryStatInfoTable.insertAdjacentHTML("beforeend", covidData);
 };
 
 const fetchData = (country) => {
@@ -118,9 +125,9 @@ const fetchData = (country) => {
     .then((data) => {
       displayStatistics(data);
     })
-    .catch(() => {
-      countryStatInfo.innerHTML = "";
-      alert("Sorry something went wrong,Try again");
+    .catch((error) => {
+      countryStatInfoTable.innerHTML = "";
+      alert(error.message);
     });
 };
 
