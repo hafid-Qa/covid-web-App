@@ -7,7 +7,7 @@ const countriesList = COUNTRIES.split(", ").sort();
 
 /* GET home page. */
 router.get("/home", function (req, res) {
-  res.render("index");
+  res.render("home");
 });
 
 // Get Statistics pages
