@@ -1,4 +1,4 @@
-# CovidApp-ExpressJS
+# Covid Web App-ExpressJS
 
 A web app to monitor the latest statistics about cases of covid-19 in the world.
 Back-end with ExpressJs and PUG as template engine.Front-end with pure JS.
