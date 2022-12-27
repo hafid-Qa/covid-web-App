@@ -39,8 +39,7 @@ yarn install
 or
 npm install
 
-### Run a server Localhost:3000/home
-
+#Run a server Localhost:3000/home
 npm or yarn start
 or
 npm or yarn run dev # this is with nodemon
@@ -49,9 +48,10 @@ npm or yarn run dev # this is with nodemon
 ### Building With Docker
 
 ```
+#Build an image
 docker build -t <name of your app image> .
 
-Run the server
+#Run the server
 docker run -p <your preferred port>:3000 <the name of the app image>
 ```
 
@@ -59,6 +59,8 @@ Using Docker Compose
 
 ```
 docker-compose up --build
+
+#open localhost:3000/home
 ```
 
-localhost:3000/home
+
