@@ -10,25 +10,9 @@ block content
               each name in countriesList
                 option(value=`${name}`) #{name}
         .d-flex.flex-column.justify-content-between#country-info      
-          div.text-center
-            h3 #{worldStats.Country_text}
-          div.d-flex.justify-content-between.border.align-items-center.p-1.my-2.rounded
-            p Total Cases
-            span #{worldStats["Total Cases_text"]}
-          div.d-flex.justify-content-between.align-items-center.p-1.border.my-2.rounded
-            p Deaths
-            span #{worldStats["New Deaths_text"]}
-          div.d-flex.justify-content-between.align-items-center.p-1.border.my-2.rounded
-            p Recovered
-            span #{worldStats["Total Recovered_text"]}
-          div.d-flex.justify-content-between.align-items-center.p-1.border.my-2.rounded
-            p Active Cases
-            span #{worldStats["New Cases_text"]}
-          div.d-flex.justify-content-between.align-items-center.p-1.border.my-2.rounded
-            p Last Updated
-            span #{`${worldStats["Last Update"].split(" ")[0]}`}
+          include ../partials/statsTable 
       .col-sm-12.col-lg-8
-        #map.shadow-lg.bg-body.rounded.mb-2.
+        include ../partials/map
      
         
     
