@@ -2,7 +2,7 @@
 const MAPBOX_KEY =
   "pk.eyJ1IjoiaGFmaWQxMDAiLCJhIjoiY2xidWk3MWRkMXA2ZzN3cGs0cDRlbnpzMSJ9.WFkGyQqKh7BglSV3jrSuzw";
 const statisticsPage = document.querySelector("#stats-page");
-
+const mapContainer = document.querySelector("#map");
 // ** Display map on load **  //
 if (statisticsPage) {
   document.addEventListener("DOMContentLoaded", (event) => {
@@ -11,8 +11,8 @@ if (statisticsPage) {
 }
 
 // ** Display map **  //
-
 const displayMap = (coordinates) => {
+  mapContainer.innerHTML = "";
   mapboxgl.accessToken = MAPBOX_KEY;
   let mapOptions = {};
   if (coordinates === undefined || coordinates[0] === -74.01084309969329) {
@@ -63,21 +63,34 @@ const fetchCoordinates = (country) => {
 const countriesList = document.querySelector("#countries-list");
 const countryStatInfoTable = document.querySelector("#country-info");
 
-//  calculate the recovery rate
-const CalculateRecoveryPercentage = (recoveredCases, totalCases) => {
-  let recoveredCasesToNumber = parseInt(recoveredCases.replace(/,/g, ""));
-  let totalCasesToNumber = parseInt(totalCases.replace(/,/g, ""));
-  const recoveryPercentage = (
-    (recoveredCasesToNumber / totalCasesToNumber) *
-    100
-  ).toFixed(2);
-  if (recoveryPercentage === "NaN") {
-    return { message: "Sorry Data is missing 😔", class: "warning" };
-  } else {
-    return { message: ` ${recoveryPercentage}%`, class: "success" };
-  }
+// get the select country
+const update = () => {
+  let value = countriesList.options[countriesList.selectedIndex].value;
+  fetchData(value);
 };
-// ** display the country stats ** //
+
+// fetch covid data
+const fetchData = (country) => {
+  const url = `https://covid-19.dataflowkit.com/v1/${country}`;
+  fetchCoordinates(country);
+  fetch(url)
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error("Something went wrong");
+      }
+    })
+    .then((data) => {
+      displayStatistics(data);
+    })
+    .catch((error) => {
+      countryStatInfoTable.innerHTML = "";
+      alert(error.message);
+    });
+};
+
+// ** display the country statistics ** //
 const displayStatistics = (data) => {
   const recoveryRate = CalculateRecoveryPercentage(
     data["Total Recovered_text"],
@@ -111,36 +124,26 @@ const displayStatistics = (data) => {
   countryStatInfoTable.insertAdjacentHTML("beforeend", covidData);
 };
 
-const fetchData = (country) => {
-  const url = `https://covid-19.dataflowkit.com/v1/${country}`;
-  fetchCoordinates(country);
-  fetch(url)
-    .then((response) => {
-      if (response.ok) {
-        return response.json();
-      } else {
-        throw new Error("Something went wrong");
-      }
-    })
-    .then((data) => {
-      displayStatistics(data);
-    })
-    .catch((error) => {
-      countryStatInfoTable.innerHTML = "";
-      alert(error.message);
-    });
-};
-
-// get the select country and fetch the statistics
-const update = () => {
-  let value = countriesList.options[countriesList.selectedIndex].value;
-  fetchData(value);
+//  calculate the recovery rate
+const CalculateRecoveryPercentage = (recoveredCases, totalCases) => {
+  const recoveredCasesToNumber = parseInt(recoveredCases.replace(/,/g, ""));
+  const totalCasesToNumber = parseInt(totalCases.replace(/,/g, ""));
+  const recoveryPercentage = (
+    (recoveredCasesToNumber / totalCasesToNumber) *
+    100
+  ).toFixed(2);
+  if (recoveryPercentage === "NaN") {
+    return { message: "Sorry Data is missing 😔", class: "warning" };
+  } else {
+    return { message: ` ${recoveryPercentage}%`, class: "success" };
+  }
 };
 
 ///** form submission logic **///
-// submitting the contact us form
 const form = document.querySelector("form");
-const messageDiv = document.getElementById("feedback-message");
+const NotificationDiv = document.getElementById("feedback-message");
+
+// submitting the contact us form
 const submitMessage = (e) => {
   e.preventDefault();
   const formData = Object.fromEntries(new FormData(form));
@@ -150,16 +153,6 @@ const submitMessage = (e) => {
     body: JSON.stringify(formData),
   };
   sendEmail(options);
-};
-// display send feedback email notification
-
-const displayMessage = (message) => {
-  messageDiv.classList.add("alert", "alert-success");
-  messageDiv.insertAdjacentHTML("afterbegin", `<p>${message}</p>`);
-  setTimeout(() => {
-    messageDiv.classList.remove("alert", "alert-success");
-    messageDiv.innerHTML = "";
-  }, 2000);
 };
 
 const sendEmail = (options) => {
@@ -173,12 +166,23 @@ const sendEmail = (options) => {
     })
     .then((data) => {
       form.reset();
-      displayMessage(data.message);
+      displayNotification(data.message);
     })
     .catch((error) => {
-      displayMessage("Error: " + error.message);
+      displayNotification("Error: " + error.message);
     });
 };
+
+// display send feedback email notification
+const displayNotification = (message) => {
+  NotificationDiv.classList.add("alert", "alert-success");
+  NotificationDiv.insertAdjacentHTML("afterbegin", `<p>${message}</p>`);
+  setTimeout(() => {
+    NotificationDiv.classList.remove("alert", "alert-success");
+    NotificationDiv.innerHTML = "";
+  }, 2000);
+};
+
 if (form) {
   form.addEventListener("submit", submitMessage);
 }
