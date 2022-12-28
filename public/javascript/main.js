@@ -20,7 +20,7 @@ const displayMap = (coordinates) => {
       container: "map",
       style: "mapbox://styles/mapbox/streets-v12",
       center: [31.235726, 30.044388],
-      zoom: 1,
+      zoom: 1.5,
     };
   } else {
     mapOptions = {
@@ -32,8 +32,8 @@ const displayMap = (coordinates) => {
   }
   const map = new mapboxgl.Map(mapOptions);
   map.addControl(new mapboxgl.NavigationControl());
-  if (coordinates != undefined) {
-    if (coordinates[0] != -74.01084309969329) {
+  if (coordinates !== undefined) {
+    if (coordinates[0] !== -74.01084309969329) {
       new mapboxgl.Marker().setLngLat(coordinates).addTo(map);
     }
   }
@@ -108,9 +108,10 @@ const displayStatistics = (data) => {
             <p>Deaths</p> <span>${data["New Deaths_text"]}</span>
           </div>
           <div class="d-flex justify-content-between align-items-center p-1 border my-2 rounded">
-           <p>Recovered</p> <span>${data["Total Recovered_text"]}</span>
+            <p>Recovered</p> <span>${data["Total Recovered_text"]}</span>
           </div><div class="d-flex justify-content-between align-items-center p-1 border my-2 rounded">
-           <p>Active Cases</p><span>${data["New Cases_text"]}</span></div>
+            <p>Active Cases</p><span>${data["New Cases_text"]}</span>
+          </div>
           <div class="d-flex justify-content-between align-items-center p-1 border my-2 rounded">
             <p>Last Updated</p><span>${data["Last Update"].split(" ")[0]}</span>
           </div>
