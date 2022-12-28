@@ -25,7 +25,7 @@ There are three pages:
 #Create .env file
 touch .env
 
-#Inside .env, set these variables.
+#Inside .env, set this variables.
 GOOGLE_USER=your_own_email
 GOOGLE_APP_PASS=your_own_password_or_app_key
 RECEIVER_EMAIL=receiving_email
