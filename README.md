@@ -1,4 +1,4 @@
-# Covid Web App-ExpressJS and PUG
+# Covid Web App-ExpressJS and PUG as templating engine
 
 A web app to monitor the latest statistics about cases of covid-19 in the world.
 Back-end with ExpressJs and PUG as template engine.Front-end with pure JS.
