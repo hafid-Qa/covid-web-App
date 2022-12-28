@@ -32,7 +32,7 @@ RECEIVER_EMAIL=receiving_email
 ```
 ### MAPBOX key
 ```
-#In public/javascript/main.js set these variable.
+#In public/javascript/main.js set this variable.
 const MAPBOX_KEY ="your_own_mapbox_key"
 ```
 
