@@ -11,7 +11,7 @@ There are three pages:
 /statistics: Dynamically generated and contain the following displays:
 
 - Dropdown from which the user can pick a country or the world
-- A map that shows which country is currently selected.
+- A map that shows which country is currently selected,using MapBox.
 - A table displaying the different statistics for the world or the selected country.
 
 /contact: To send a message in case a user wants to ask for an inquiry.
@@ -29,6 +29,11 @@ touch .env
 GOOGLE_USER=your_own_email
 GOOGLE_APP_PASS=your_own_password_or_app_key
 RECEIVER_EMAIL=receiving_email
+```
+### MAPBOX key
+```
+#In public/javascript/main.js set these variable.
+const MAPBOX_KEY ="your_own_mapbox_key"
 ```
 
 ### On local environment

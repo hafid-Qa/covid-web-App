@@ -1,5 +1,5 @@
 // *** Map display ***//
-const KEY =
+const MAPBOX_KEY =
   "pk.eyJ1IjoiaGFmaWQxMDAiLCJhIjoiY2xidWk3MWRkMXA2ZzN3cGs0cDRlbnpzMSJ9.WFkGyQqKh7BglSV3jrSuzw";
 const statisticsPage = document.querySelector("#stats-page");
 
@@ -13,7 +13,7 @@ if (statisticsPage) {
 // ** Display map **  //
 
 const displayMap = (coordinates) => {
-  mapboxgl.accessToken = KEY;
+  mapboxgl.accessToken = MAPBOX_KEY;
   let mapOptions = {};
   if (coordinates === undefined || coordinates[0] === -74.01084309969329) {
     mapOptions = {
@@ -41,7 +41,7 @@ const displayMap = (coordinates) => {
 
 //  ** fetch coordinates of selected country and display the map ** //
 const fetchCoordinates = (country) => {
-  const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${country}.json?access_token=${KEY}`;
+  const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${country}.json?access_token=${MAPBOX_KEY}`;
   fetch(url)
     .then((response) => {
       if (response.ok) {
