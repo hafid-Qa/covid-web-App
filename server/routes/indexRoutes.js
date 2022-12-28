@@ -21,7 +21,7 @@ router.get("/statistics", async (req, res) => {
       countriesList: countriesList,
     });
   } catch (error) {
-    res.status(400).json({ message: error });
+    res.status(400).render("error");
   }
 });
 
