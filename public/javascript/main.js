@@ -55,7 +55,7 @@ const fetchCoordinates = (country) => {
       displayMap(coordinates);
     })
     .catch((error) => {
-      console.log(error);
+      alert("Something went wrong, Try again!");
     });
 };
 
