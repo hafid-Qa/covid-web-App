@@ -29,6 +29,9 @@ touch .env
 GOOGLE_USER=your_own_email
 GOOGLE_APP_PASS=your_own_password_or_app_key
 RECEIVER_EMAIL=receiving_email
+
+# Also, you can define all the variables in server/routes/contactForm.js
+if you do not want to use environment variables.
 ```
 ### MAPBOX key
 ```
