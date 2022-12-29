@@ -19,7 +19,7 @@ router.post("/send", (req, res) => {
   try {
     transport.sendMail({
       from: email,
-      to: process.env.RECEIVER_EMAIL,
+      to: "info@corpy.co.jp",
       subject: `Request from ${name ? name : email}`,
       html: `
         <p>You have a new request form submission</p>
