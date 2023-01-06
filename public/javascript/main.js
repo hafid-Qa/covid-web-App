@@ -1,8 +1,13 @@
 // *** Map display ***//
-const MAPBOX_KEY =
-  "pk.eyJ1IjoiaGFmaWQxMDAiLCJhIjoiY2xidWk3MWRkMXA2ZzN3cGs0cDRlbnpzMSJ9.WFkGyQqKh7BglSV3jrSuzw";
+// const MAPBOX_KEY =
+//   "pk.eyJ1IjoiaGFmaWQxMDAiLCJhIjoiY2xidWk3MWRkMXA2ZzN3cGs0cDRlbnpzMSJ9.WFkGyQqKh7BglSV3jrSuzw";
 const statisticsPage = document.querySelector("#stats-page");
 const mapContainer = document.querySelector("#map");
+let mapbox_key
+if (mapContainer != null) {
+  mapbox_key = mapContainer.dataset.apiKey;
+}
+
 // ** Display map on load **  //
 if (statisticsPage) {
   document.addEventListener("DOMContentLoaded", (event) => {
@@ -13,7 +18,7 @@ if (statisticsPage) {
 // ** Display map **  //
 const displayMap = (coordinates) => {
   mapContainer.innerHTML = "";
-  mapboxgl.accessToken = MAPBOX_KEY;
+  mapboxgl.accessToken = mapbox_key;
   let mapOptions = {};
   if (coordinates === undefined || coordinates[0] === -74.01084309969329) {
     mapOptions = {
