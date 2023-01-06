@@ -1,10 +1,8 @@
 // *** Map display ***//
-// const MAPBOX_KEY =
-//   "pk.eyJ1IjoiaGFmaWQxMDAiLCJhIjoiY2xidWk3MWRkMXA2ZzN3cGs0cDRlbnpzMSJ9.WFkGyQqKh7BglSV3jrSuzw";
 const statisticsPage = document.querySelector("#stats-page");
 const mapContainer = document.querySelector("#map");
-let mapbox_key
-if (mapContainer != null) {
+let mapbox_key;
+if (mapContainer) {
   mapbox_key = mapContainer.dataset.apiKey;
 }
 
