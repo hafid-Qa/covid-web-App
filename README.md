@@ -30,7 +30,6 @@ GOOGLE_USER=your_own_email
 GOOGLE_APP_PASS=your_own_password_or_app_key
 RECEIVER_EMAIL=receiving_email
 MAPBOX_API_KEY=your_api_key
-
 ```
 
 ### On local environment
