@@ -44,7 +44,7 @@ const displayMap = (coordinates) => {
 
 //  ** fetch coordinates of selected country and display the map ** //
 const fetchCoordinates = (country) => {
-  const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${country}.json?access_token=${MAPBOX_KEY}`;
+  const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${country}.json?access_token=${mapbox_key}`;
   fetch(url)
     .then((response) => {
       if (response.ok) {
