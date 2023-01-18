@@ -2,7 +2,7 @@ services:
   app:
     build: .
     container_name: covid-Stats
-    command: npm run dev 
+    command: yarn run dev
     ports:
       - 3000:3000
     volumes:
