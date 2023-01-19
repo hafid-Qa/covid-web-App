@@ -2,7 +2,7 @@ import express from "express";
 const router = express.Router();
 import axios from "axios";
 
-import COUNTRIES from "../data/countriesNames.js";
+import COUNTRIES from "../data/country-names.js";
 const countriesList = COUNTRIES.split(", ").sort();
 
 /* GET home page. */

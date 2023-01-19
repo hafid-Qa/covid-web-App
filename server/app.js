@@ -2,8 +2,8 @@ import express from "express";
 import path from "path";
 import cookieParser from "cookie-parser";
 import logger from "morgan";
-import indexRouter from "./routes/indexRoutes.js";
-import contactFormRouter from "./routes/contactForm.js";
+import indexRouter from "./routes/index-routes.js";
+import contactFormRouter from "./routes/contact-form.js";
 const __dirname = path.resolve();
 const app = express();
 
